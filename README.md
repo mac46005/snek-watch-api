@@ -20,9 +20,39 @@ A RESTful API built with Spring Boot to monitor and manage your snake-watching a
 
 ## ⚙️ Setup & Installation
 
-1. Cone the Repository
+### 1. Cone the Repository
 
 ```bash
 git clone https://github.com/your-username/snek-watch-api.git
 cd snek-watch-api
 ```
+
+### 2. Configure Application Properties
+
+Edit `src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/snekdb
+spring.datasource.username=your_user
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=none
+server.port=8080
+```
+
+### 3. Build the Project
+
+```bash
+./mvnw clean install
+```
+
+### 4. Run the Application
+
+```bash
+java -jar target/snek-watch-api-1.0.0.jar
+```
+
+## 📚 API Endpoints
+
+## 📄 License
+
+MIT License — do whatever you want, just don’t sue 😄
