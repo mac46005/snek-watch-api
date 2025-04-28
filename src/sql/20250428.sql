@@ -8,3 +8,13 @@ CREATE TABLE snake_types(
 	average_adult_length_in_feet DOUBLE PRECISION NULL,
 	diet VARCHAR(20)
 );
+
+CREATE TABLE snakes(
+	id BIGSERIAL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	dob DATE NOT NULL,
+	snake_type_id BIGINT NOT NULL,
+	CONSTRAINT fk_snake_type
+		FOREIGN KEY (snake_type_id)
+		REFERENCES snake_types(id)
+);
