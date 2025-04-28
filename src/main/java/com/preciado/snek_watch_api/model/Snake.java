@@ -6,7 +6,8 @@ public class Snake {
     private long id;
     private String name;
     private LocalDate dob;
-    // private long snakeTypeId; <-- something to this effect...
+    private long snakeTypeId;
+    
     public long getId() {
         return id;
     }
@@ -24,6 +25,12 @@ public class Snake {
     }
     public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+    public long getSnakeTypeId() {
+        return snakeTypeId;
+    }
+    public void setSnakeTypeId(long snakeTypeId) {
+        this.snakeTypeId = snakeTypeId;
     }
 
     
