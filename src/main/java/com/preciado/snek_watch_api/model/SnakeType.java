@@ -7,11 +7,6 @@ public class SnakeType {
     private String careLevel;
     private String overview;
     private int averageLifeSpanInYrs;
-    private double averageAdultLength;
+    private double averageAdultLengthInFeet;
     private String dietType;
-    private int minimumHabitatSizeInGallons;
-    private String[] supplies;
-
-
-
 }
