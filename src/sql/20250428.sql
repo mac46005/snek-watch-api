@@ -18,3 +18,14 @@ CREATE TABLE snakes(
 		FOREIGN KEY (snake_type_id)
 		REFERENCES snake_types(id)
 );
+
+CREATE TABLE feeding_logs(
+	id BIGSERIAL PRIMARY KEY,
+	snake_id BIGINT NOT NULL,
+	fed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	food_item VARCHAR(50) NULL,
+	notes VARCHAR(500) NULL,
+	CONSTRAINT fk_snake_id
+		FOREIGN KEY (snake_id)
+		REFERENCES snakes(id)
+)
