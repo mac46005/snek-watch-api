@@ -8,5 +8,5 @@ public class SnakeType {
     private String overview;
     private int averageLifeSpanInYrs;
     private double averageAdultLengthInFeet;
-    private String dietType;
+    private String diet;
 }
