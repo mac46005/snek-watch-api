@@ -52,7 +52,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
                 ps.setString(3, data.getCareLevel());
                 ps.setString(4, data.getOverview());
                 ps.setInt(5, data.getAverageLifeSpanInYrs());
-                ps.setFloat(0, 0);
+                ps.setDouble(6, data.getAverageAdultLengthInFeet());
+                ps.setString(7, data.getDiet());
                 
                 return ps;
             },
@@ -69,15 +70,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
     @Override
     public SnakeType read(long id) {
-        String sql = """
-            SELECT  id, common_name, taxonomy_name, care_level, overview, average_life_span_in_yrs, average_adult_length_in_feet, diet FROM snake_types;
-        """;
-        jdbcTemplate.query(
-            sql, 
-            rs -> {
-                rs.getString("common_name");
-            }
-        );
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'read'");
     }
 
     @Override
