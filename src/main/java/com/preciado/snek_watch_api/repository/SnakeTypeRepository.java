@@ -11,9 +11,13 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.preciado.snek_watch_api.model.SnakeType;
+import com.preciado.snek_watch_api.repository.tables.SnakeTypesEnum;
+import com.preciado.snek_watch_api.service.SqlStatementCreator;
 
 @Repository
 public class SnakeTypeRepository implements ICRUD<SnakeType> {
+    private final String TABLE_NAME = "snake_types";
+
     private final JdbcTemplate jdbcTemplate;
 
     public SnakeTypeRepository(
@@ -25,9 +29,16 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
     @Override
     public long create(SnakeType data) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String sql = """
-            INSERT INTO snake_types (common_name, taxonomy_name, care_level, overview, average_life_span_in_yrs, average_adult_length_in_feet, diet) VALUES (?, ?, ?, ?, ?, ?, ?);
-        """;
+        String sql = SqlStatementCreator.InsertStatement(
+            TABLE_NAME,
+            SnakeTypesEnum.COMMON_NAME.toString(),
+            SnakeTypesEnum.TAXONOMY_NAME.toString(),
+            SnakeTypesEnum.CARE_LEVEL.toString(),
+            SnakeTypesEnum.OVERVIEW.toString(),
+            SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
+            SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
+            SnakeTypesEnum.DIET.toString()
+        );
 
         jdbcTemplate.update(
             connection -> {
