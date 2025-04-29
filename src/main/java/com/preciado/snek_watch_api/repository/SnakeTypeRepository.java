@@ -58,8 +58,15 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
     @Override
     public SnakeType read(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String sql = """
+            SELECT  id, common_name, taxonomy_name, care_level, overview, average_life_span_in_yrs, average_adult_length_in_feet, diet FROM snake_types;
+        """;
+        jdbcTemplate.query(
+            sql, 
+            rs -> {
+                rs.getString("common_name");
+            }
+        );
     }
 
     @Override
