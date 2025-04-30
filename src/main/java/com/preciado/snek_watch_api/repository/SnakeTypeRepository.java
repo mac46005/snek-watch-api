@@ -21,8 +21,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
     private final JdbcTemplate jdbcTemplate;
 
     public SnakeTypeRepository(
-        JdbcTemplate jdbcTemplate
-    ) {
+            JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -30,56 +29,38 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
     public long create(SnakeType data) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql = SqlStatementCreator.InsertStatement(
-            TABLE_NAME,
-            SnakeTypesEnum.COMMON_NAME.toString(),
-            SnakeTypesEnum.TAXONOMY_NAME.toString(),
-            SnakeTypesEnum.CARE_LEVEL.toString(),
-            SnakeTypesEnum.OVERVIEW.toString(),
-            SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
-            SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
-            SnakeTypesEnum.DIET.toString()
-        );
+                TABLE_NAME,
+                SnakeTypesEnum.COMMON_NAME.toString(),
+                SnakeTypesEnum.TAXONOMY_NAME.toString(),
+                SnakeTypesEnum.CARE_LEVEL.toString(),
+                SnakeTypesEnum.OVERVIEW.toString(),
+                SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
+                SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
+                SnakeTypesEnum.DIET.toString());
 
         jdbcTemplate.update(
-            connection -> {
-                PreparedStatement ps = connection.prepareStatement(
-                    sql,
-                    Statement.RETURN_GENERATED_KEYS
-                );
+                connection -> {
+                    PreparedStatement ps = connection.prepareStatement(
+                            sql,
+                            Statement.RETURN_GENERATED_KEYS);
 
-                ps.setString(1, data.getCommonName());
+                    ps.setString(1, data.getCommonName());
 
-                
-                if (data.getTaxonomyName() != null) {
                     ps.setString(2, data.getTaxonomyName());
-                }
-                
-                if (data.getCareLevel() != null) {
-                    ps.setString(3, data.getCareLevel());
-                }
-                
-                if (data.getOverview() != null) {
-                    ps.setString(4, data.getOverview());
-                }
-                
-                if (data.getAverageLifeSpanInYrs() != 0) {
-                    ps.setInt(5, data.getAverageLifeSpanInYrs());
-                }
-                
-                if (data.getAverageAdultLengthInFeet() != 0) {
-                    ps.setDouble(6, data.getAverageAdultLengthInFeet());
-                }
 
-                if (data.getDiet() != null) {
+                    ps.setString(3, data.getCareLevel());
+
+                    ps.setString(4, data.getOverview());
+
+                    ps.setInt(5, data.getAverageLifeSpanInYrs());
+
+                    ps.setDouble(6, data.getAverageAdultLengthInFeet());
+
                     ps.setString(7, data.getDiet());
-                }
-                
-                
-                
-                return ps;
-            },
-            keyHolder
-        );
+
+                    return ps;
+                },
+                keyHolder);
         return keyHolder.getKey().longValue();
     }
 

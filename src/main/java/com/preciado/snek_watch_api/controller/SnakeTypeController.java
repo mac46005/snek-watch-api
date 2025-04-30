@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.preciado.snek_watch_api.model.SnakeType;
 import com.preciado.snek_watch_api.repository.SnakeTypeRepository;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -20,7 +21,7 @@ public class SnakeTypeController {
         this.snakeTypeRepository = snakeTypeRepository;
     }
     @PostMapping
-    public SnakeType postMethodName(@RequestBody SnakeType entity) {
+    public ResponseEntity<long> postMethodName(@RequestBody SnakeType entity) {
         snakeTypeRepository.create(entity);
         return entity;
     }
