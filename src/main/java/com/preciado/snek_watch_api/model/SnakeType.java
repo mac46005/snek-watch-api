@@ -2,14 +2,14 @@ package com.preciado.snek_watch_api.model;
 
 public class SnakeType {
     private long id;
-    private String commonName;
-    private String taxonomyName;
-    private String careLevel;
-    private String overview;
+    private String commonName = null;
+    private String taxonomyName = null;
+    private String careLevel = null;
+    private String overview = null;
     private int averageLifeSpanInYrs;
     private double averageAdultLengthInFeet;
     private String diet;
-    
+
     public long getId() {
         return id;
     }

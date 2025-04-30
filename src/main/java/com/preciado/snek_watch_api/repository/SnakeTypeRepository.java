@@ -48,12 +48,33 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
                 );
 
                 ps.setString(1, data.getCommonName());
-                ps.setString(2, data.getTaxonomyName());
-                ps.setString(3, data.getCareLevel());
-                ps.setString(4, data.getOverview());
-                ps.setInt(5, data.getAverageLifeSpanInYrs());
-                ps.setDouble(6, data.getAverageAdultLengthInFeet());
-                ps.setString(7, data.getDiet());
+
+                
+                if (data.getTaxonomyName() != null) {
+                    ps.setString(2, data.getTaxonomyName());
+                }
+                
+                if (data.getCareLevel() != null) {
+                    ps.setString(3, data.getCareLevel());
+                }
+                
+                if (data.getOverview() != null) {
+                    ps.setString(4, data.getOverview());
+                }
+                
+                if (data.getAverageLifeSpanInYrs() != 0) {
+                    ps.setInt(5, data.getAverageLifeSpanInYrs());
+                }
+                
+                if (data.getAverageAdultLengthInFeet() != 0) {
+                    ps.setDouble(6, data.getAverageAdultLengthInFeet());
+                }
+
+                if (data.getDiet() != null) {
+                    ps.setString(7, data.getDiet());
+                }
+                
+                
                 
                 return ps;
             },

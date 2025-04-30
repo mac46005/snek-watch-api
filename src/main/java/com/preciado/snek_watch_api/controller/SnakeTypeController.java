@@ -1,31 +1,27 @@
 package com.preciado.snek_watch_api.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.preciado.snek_watch_api.model.SnakeType;
+import com.preciado.snek_watch_api.repository.SnakeTypeRepository;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
 @RestController
-@RequestMapping("/snakes")
-public class SnakeController {
-    @GetMapping
-    public String getMethodName(
-        
+@RequestMapping("/snake-types")
+public class SnakeTypeController {
+    private SnakeTypeRepository snakeTypeRepository;
+    public SnakeTypeController(
+        SnakeTypeRepository snakeTypeRepository
     ) {
-        return "Hello world!!!";
+        this.snakeTypeRepository = snakeTypeRepository;
     }
-    
     @PostMapping
     public SnakeType postMethodName(@RequestBody SnakeType entity) {
-        //TODO: process POST request
-        
+        snakeTypeRepository.create(entity);
         return entity;
     }
     
