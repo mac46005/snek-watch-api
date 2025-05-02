@@ -61,7 +61,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
                     return ps;
                 },
                 keyHolder);
-        return keyHolder.getKey().longValue();
+        return ((Number) keyHolder.getKeyList().get(0).get("id")).longValue();
     }
 
     @Override
