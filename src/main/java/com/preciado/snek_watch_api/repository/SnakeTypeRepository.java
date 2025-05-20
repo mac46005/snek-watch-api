@@ -28,7 +28,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
     @Override
     public long create(SnakeType data) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String sql = SqlStatementCreator.InsertStatement(
+        String sql = SqlStatementCreator.createInsertStatement(
                 TABLE_NAME,
                 SnakeTypesEnum.COMMON_NAME.toString(),
                 SnakeTypesEnum.TAXONOMY_NAME.toString(),
