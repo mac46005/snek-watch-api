@@ -104,8 +104,38 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
     @Override
     public SnakeType read(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String selectStatement = SqlStatementCreator.createSelectStatement(
+            TABLE_NAME, 
+            "WHERE id = " + id,
+             SnakeTypesEnum.ID.toString(),
+             SnakeTypesEnum.COMMON_NAME.toString(),
+             SnakeTypesEnum.TAXONOMY_NAME.toString(),
+             SnakeTypesEnum.CARE_LEVEL.toString(),
+             SnakeTypesEnum.OVERVIEW.toString(),
+             SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
+             SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
+             SnakeTypesEnum.DIET.toString()
+        );
+
+        List<SnakeType> snakeTypes = jdbcTemplate.query(
+            selectStatement, 
+            (rs, rowNum) -> {
+                SnakeType snakeType = new SnakeType();
+                snakeType.setId(rs.getLong(SnakeTypesEnum.ID.toString()));
+                snakeType.setCommonName(rs.getString(SnakeTypesEnum.COMMON_NAME.toString()));
+                snakeType.setTaxonomyName(rs.getString(SnakeTypesEnum.TAXONOMY_NAME.toString()));
+                snakeType.setCareLevel(rs.getString(SnakeTypesEnum.CARE_LEVEL.toString()));
+                snakeType.setOverview(rs.getString(SnakeTypesEnum.OVERVIEW.toString()));
+                snakeType.setAverageLifeSpanInYrs(rs.getInt(SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString()));
+                snakeType.setAverageAdultLengthInFeet(rs.getInt(SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString()));
+                snakeType.setDiet(rs.getString(SnakeTypesEnum.DIET.toString()));
+
+
+                return snakeType;
+            }
+        );
+
+        return snakeTypes.get(0);
     }
 
     @Override
