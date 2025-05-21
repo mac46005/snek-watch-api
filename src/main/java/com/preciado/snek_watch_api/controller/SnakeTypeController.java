@@ -7,10 +7,14 @@ import com.preciado.snek_watch_api.model.SnakeType;
 import com.preciado.snek_watch_api.repository.SnakeTypeRepository;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/snake-types")
@@ -29,4 +33,11 @@ public class SnakeTypeController {
         return ResponseEntity.created(location).body(newId);
     }
 
+
+    @GetMapping
+    public ResponseEntity<List<SnakeType>> getMethodName() {
+        
+        return ResponseEntity.ok(snakeTypeRepository.read());
+    }
+    
 }

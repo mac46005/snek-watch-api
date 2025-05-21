@@ -4,8 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -19,6 +22,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
     private final String TABLE_NAME = "snake_types";
 
     private final JdbcTemplate jdbcTemplate;
+
+    private final Logger logger = LoggerFactory.getLogger(SnakeTypeRepository.class);
 
     public SnakeTypeRepository(
             JdbcTemplate jdbcTemplate) {
@@ -66,8 +71,35 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
     @Override
     public List<SnakeType> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String selectStatement = SqlStatementCreator.createSelectStatement(
+            TABLE_NAME, 
+            "",
+             SnakeTypesEnum.ID.toString(),
+             SnakeTypesEnum.COMMON_NAME.toString(),
+             SnakeTypesEnum.TAXONOMY_NAME.toString(),
+             SnakeTypesEnum.CARE_LEVEL.toString(),
+             SnakeTypesEnum.OVERVIEW.toString(),
+             SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
+             SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
+             SnakeTypesEnum.DIET.toString()
+        );
+
+        return jdbcTemplate.query(
+            selectStatement,
+            (rs, rowNum) -> {
+                SnakeType snakeType = new SnakeType();
+                logger.info("SnakeTypeRepository.read test");
+                snakeType.setId(rs.getLong(SnakeTypesEnum.ID.toString()));
+                snakeType.setCommonName(rs.getString(SnakeTypesEnum.COMMON_NAME.toString()));
+                snakeType.setTaxonomyName(rs.getString(SnakeTypesEnum.TAXONOMY_NAME.toString()));
+                snakeType.setCareLevel(rs.getString(SnakeTypesEnum.CARE_LEVEL.toString()));
+                snakeType.setOverview(rs.getString(SnakeTypesEnum.OVERVIEW.toString()));
+                snakeType.setAverageLifeSpanInYrs(rs.getInt(SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString()));
+                snakeType.setAverageAdultLengthInFeet(rs.getDouble(SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString()));
+                snakeType.setDiet(rs.getString(SnakeTypesEnum.DIET.toString()));
+                return snakeType;
+            }
+        );
     }
 
     @Override
