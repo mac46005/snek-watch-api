@@ -44,4 +44,6 @@ public class SqlStatementCreator {
         }
         return sb.toString();
     }
+
+    public static String createUpdateStatement(String tableName, String constraint, String)
 }

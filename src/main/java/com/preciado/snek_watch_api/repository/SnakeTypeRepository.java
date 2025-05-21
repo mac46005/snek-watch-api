@@ -140,8 +140,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
     @Override
     public boolean update(SnakeType data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        jdbcTemplate.update
     }
 
     @Override
