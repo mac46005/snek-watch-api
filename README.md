@@ -53,6 +53,51 @@ java -jar target/snek-watch-api-1.0.0.jar
 
 ## 📚 API Endpoints
 
+### [GET] /snake-types
+
+**Description**: Fetch all snake types from the database.
+
+**Responses**:
+
+- `200 OK`
+
+```json
+[
+    {
+        "id": 1,
+        "commonName": "some name",
+        "taxonomyName": "scientific name",
+        "careLevel": "care level",
+        "overview": "overview",
+        "averageLifeSpanInYrs": 0,
+        "averageAdultLengthInFeet": 0.0,
+        "diet": "diet"
+    }
+]
+```
+
+### [POST] /snake-types
+
+**Description**: Create a new snake type.
+
+**Request Body**:
+
+```json
+{
+        "commonName": "some name",
+        "taxonomyName": "scientific name",
+        "careLevel": "care level",
+        "overview": "overview",
+        "averageLifeSpanInYrs": 0,
+        "averageAdultLengthInFeet": 0.0,
+        "diet": "diet"
+    }
+```
+
+**Responses**:
+
+- `201 CREATED`
+
 ## 📄 License
 
 MIT License — do whatever you want, just don’t sue 😄
