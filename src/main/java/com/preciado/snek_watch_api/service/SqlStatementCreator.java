@@ -45,5 +45,42 @@ public class SqlStatementCreator {
         return sb.toString();
     }
 
-    public static String createUpdateStatement(String tableName, String constraint, String)
+    public static String createUpdateStatement(String tableName, String constraint, Set ...updateSet) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("UPDATE ")
+        return "";
+    }
+
+
+    private class Set{
+        private boolean isString;
+        private String value;
+        private String columnName;
+
+        
+        public Set(boolean isString, String value, String columnName) {
+            this.isString = isString;
+            this.value = value;
+            this.columnName = columnName;
+        }
+
+        public boolean isString() {
+            return isString;
+        }
+        public void setString(boolean isString) {
+            this.isString = isString;
+        }
+        public String getValue() {
+            return value;
+        }
+        public void setValue(String value) {
+            this.value = value;
+        }
+        public String getColumnName() {
+            return columnName;
+        }
+        public void setColumnName(String columnName) {
+            this.columnName = columnName;
+        }
+    }
 }
