@@ -147,7 +147,15 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
             "WHERE id = " + data.getId(),
             new Set(true, data.getCommonName(), SnakeTypesEnum.COMMON_NAME.toString())
         );
-        jdbcTemplate.update()
+        return jdbcTemplate.update(
+            updateStatement,
+            data.getCommonName(),
+            data.getTaxonomyName(),
+            data.getCareLevel(),
+            data.getAverageLifeSpanInYrs(),
+            data.getAverageAdultLengthInFeet(),
+            data.getDiet()
+        ) > 0;
     }
 
     @Override
