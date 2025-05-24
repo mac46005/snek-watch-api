@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.preciado.snek_watch_api.model.SnakeType;
 import com.preciado.snek_watch_api.repository.tables.SnakeTypesEnum;
 import com.preciado.snek_watch_api.service.SqlStatementCreator;
+import com.preciado.snek_watch_api.service.SqlStatementCreator.Set;
 
 @Repository
 public class SnakeTypeRepository implements ICRUD<SnakeType> {
@@ -140,7 +141,13 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
     @Override
     public boolean update(SnakeType data) {
-        jdbcTemplate.update
+        String updateStatement = SqlStatementCreator
+        .createUpdateStatement(
+            TABLE_NAME, 
+            "WHERE id = " + data.getId(),
+            new Set(true, data.getCommonName(), SnakeTypesEnum.COMMON_NAME.toString())
+        );
+        jdbcTemplate.update()
     }
 
     @Override

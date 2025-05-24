@@ -47,12 +47,25 @@ public class SqlStatementCreator {
 
     public static String createUpdateStatement(String tableName, String constraint, Set ...updateSet) {
         StringBuilder sb = new StringBuilder();
-        sb.append("UPDATE ")
-        return "";
+        sb.append("UPDATE " + tableName);
+        sb.append(" SET ");
+        for(Set set: updateSet) {
+            if (set.isString()) {
+                sb.append(set.getColumnName() + " = '" + set.getValue() + "', ");
+            } else {
+               sb.append(set.getColumnName() + " = " + set.getValue() + ", "); 
+            }
+            
+        }
+
+        sb = new StringBuilder(sb.substring(0, sb.length() - 2));
+        sb.append(" " + constraint);
+        sb.append(";");
+        return sb.toString();
     }
 
 
-    private class Set{
+    public static class Set{
         private boolean isString;
         private String value;
         private String columnName;
