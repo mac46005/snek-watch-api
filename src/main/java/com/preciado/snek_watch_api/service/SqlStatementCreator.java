@@ -45,17 +45,15 @@ public class SqlStatementCreator {
         return sb.toString();
     }
 
-    public static String createUpdateStatement(String tableName, String constraint, Set ...updateSet) {
+
+    // TODO '?' is used instead of whole values but column name is needed so: column_2 = ?, ...
+    public static String createUpdateStatement(String tableName, String constraint, String ...columns) {
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE " + tableName);
         sb.append(" SET ");
-        for(Set set: updateSet) {
-            if (set.isString()) {
-                sb.append(set.getColumnName() + " = '" + set.getValue() + "', ");
-            } else {
-               sb.append(set.getColumnName() + " = " + set.getValue() + ", "); 
-            }
-            
+
+        for(String column: columns) {
+            sb.append(column + " = ?, ");
         }
 
         sb = new StringBuilder(sb.substring(0, sb.length() - 2));

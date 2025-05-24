@@ -139,13 +139,21 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
         return snakeTypes.get(0);
     }
 
+    // TODO Update statement creator to '?'
     @Override
     public boolean update(SnakeType data) {
         String updateStatement = SqlStatementCreator
         .createUpdateStatement(
             TABLE_NAME, 
-            "WHERE id = " + data.getId(),
-            new Set(true, data.getCommonName(), SnakeTypesEnum.COMMON_NAME.toString())
+            "WHERE id = ?",
+            SnakeTypesEnum.COMMON_NAME.toString(),
+            SnakeTypesEnum.TAXONOMY_NAME.toString(),
+            SnakeTypesEnum.CARE_LEVEL.toString(),
+            SnakeTypesEnum.OVERVIEW.toString(),
+            SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
+            SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
+            SnakeTypesEnum.DIET.toString()
+
         );
         return jdbcTemplate.update(
             updateStatement,
