@@ -77,8 +77,18 @@ public class SnakeRepository implements ICRUD<Snake> {
 
     @Override
     public Snake read(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String selectStatement = SqlStatementCreator.createSelectStatement(TABLE_NAME, "WHERE id = ?", SnakeEnum.NAME.toString(), SnakeEnum.DOB.toString(), SnakeEnum.SNAKE_TYPE_ID.toString());
+
+        return jdbcTemplate.query(
+            selectStatement, 
+            (rs, rowNum) -> {
+                Snake snake = new Snake();
+                snake.setName(rs.getString(SnakeEnum.NAME.toString()));
+                snake.setDob(rs.getDate(SnakeEnum.DOB.toString()).toLocalDate());
+                snake.setSnakeTypeId(rs.getLong(SnakeEnum.SNAKE_TYPE_ID.toString()));
+                return snake;
+            }
+        ).get(0);
     }
 
     @Override
