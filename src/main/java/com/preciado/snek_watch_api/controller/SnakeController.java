@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/snakes")
+@RequestMapping("api/snakes")
 public class SnakeController {
     @GetMapping
     public String getMethodName(
