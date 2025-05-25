@@ -27,7 +27,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
     private final Logger logger = LoggerFactory.getLogger(SnakeTypeRepository.class);
 
     public SnakeTypeRepository(
-            JdbcTemplate jdbcTemplate) {
+            JdbcTemplate jdbcTemplate
+    ) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
