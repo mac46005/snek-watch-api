@@ -77,12 +77,13 @@ public class SnakeRepository implements ICRUD<Snake> {
 
     @Override
     public Snake read(long id) {
-        String selectStatement = SqlStatementCreator.createSelectStatement(TABLE_NAME, "WHERE id = ?", SnakeEnum.NAME.toString(), SnakeEnum.DOB.toString(), SnakeEnum.SNAKE_TYPE_ID.toString());
+        String selectStatement = SqlStatementCreator.createSelectStatement(TABLE_NAME, "WHERE id = " + id, SnakeEnum.ID.toString(),SnakeEnum.NAME.toString(), SnakeEnum.DOB.toString(), SnakeEnum.SNAKE_TYPE_ID.toString());
 
         return jdbcTemplate.query(
             selectStatement, 
             (rs, rowNum) -> {
                 Snake snake = new Snake();
+                snake.setId(id);
                 snake.setName(rs.getString(SnakeEnum.NAME.toString()));
                 snake.setDob(rs.getDate(SnakeEnum.DOB.toString()).toLocalDate());
                 snake.setSnakeTypeId(rs.getLong(SnakeEnum.SNAKE_TYPE_ID.toString()));

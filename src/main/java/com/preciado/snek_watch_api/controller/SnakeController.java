@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("api/snakes")
+@RequestMapping("/api/snakes")
 public class SnakeController {
     SnakeRepository snakeRepository;
 
