@@ -12,7 +12,9 @@ import java.net.URI;
 import java.util.List;
 
 import org.apache.catalina.connector.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,6 +58,20 @@ public class SnakeController {
         entity.setId(id);
         snakeRepository.update(entity);
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteSnakeEndpoint(
+        @PathVariable long id
+    ) {
+        Snake s = new Snake();
+        s.setId(id);
+        boolean deleted = snakeRepository.delete(s);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Snake wit the given ID does not exist");
+        }
     }
 
 }

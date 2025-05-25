@@ -107,8 +107,8 @@ public class SnakeRepository implements ICRUD<Snake> {
 
     @Override
     public boolean delete(Snake data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String deleteStatement = SqlStatementCreator.createDeleteStatement(TABLE_NAME, "WHERE id = ?");
+        return jdbcTemplate.update(deleteStatement, data.getId()) > 0;
     }
 
 }
