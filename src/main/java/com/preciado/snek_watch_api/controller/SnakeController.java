@@ -9,6 +9,7 @@ import com.preciado.snek_watch_api.repository.SnakeRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.net.URI;
+import java.util.List;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
@@ -17,39 +18,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 @RequestMapping("api/snakes")
 public class SnakeController {
     SnakeRepository snakeRepository;
 
     public SnakeController(
-        SnakeRepository snakeRepository
-    ) {
+            SnakeRepository snakeRepository) {
         this.snakeRepository = snakeRepository;
     }
 
-
     @GetMapping
-    public String getMethodName(
-        
-    ) {
-        return "Hello world!!!";
+    public ResponseEntity<List<Snake>> getAllSnakesEndpoint() {
+        return ResponseEntity.ok().body(snakeRepository.read());
     }
-    
-    @PostMapping
-    public ResponseEntity postMethodName(@RequestBody Snake entity) {
-        try {
-            long id = snakeRepository.create(entity);
-            entity.setId(id);
-            URI location = URI.create("/api/snakes/" + id);
 
-            return ResponseEntity.created(location).body(entity);
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(ex);
-        }
-        
+    @PostMapping
+    public ResponseEntity<Snake> createSnakeEndpoint(@RequestBody Snake entity) {
+        long id = snakeRepository.create(entity);
+        entity.setId(id);
+        URI location = URI.create("/api/snakes/" + id);
+
+        return ResponseEntity.created(location).body(entity);
     }
-    
+
 }
