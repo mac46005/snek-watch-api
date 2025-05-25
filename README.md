@@ -121,6 +121,23 @@ java -jar target/snek-watch-api-1.0.0.jar
 
 - `201 CREATED`
 
+### [POST] api/snakes
+
+**Description**: Create a new user snake in the database and returns the newly generated id with the snake.
+
+**Responses**:
+
+- `201 CREATED`
+
+```json
+{
+    "id": 1,
+    "name": "Dante",
+    "dob": "2023-04-02",
+    "snakeTypeId": 2
+}
+```
+
 ## 📄 License
 
 MIT License — do whatever you want, just don’t sue 😄

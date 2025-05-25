@@ -7,11 +7,13 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.preciado.snek_watch_api.model.Snake;
 import com.preciado.snek_watch_api.repository.tables.SnakeEnum;
 import com.preciado.snek_watch_api.service.SqlStatementCreator;
 
+@Repository
 public class SnakeRepository implements ICRUD<Snake> {
     private final String TABLE_NAME = "snakes";
     private final JdbcTemplate jdbcTemplate;
@@ -48,14 +50,29 @@ public class SnakeRepository implements ICRUD<Snake> {
             keyHolder
         );
 
-        return ((Number) keyHolder.getKeyList().get(0).get("id")).longValue()
+        return ((Number) keyHolder.getKeyList().get(0).get("id")).longValue();
 
     }
 
     @Override
     public List<Snake> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String selectStatement = SqlStatementCreator.createSelectStatement(
+            TABLE_NAME, 
+            "",
+            SnakeEnum.NAME.toString(),
+            SnakeEnum.DOB.toString(),
+            SnakeEnum.SNAKE_TYPE_ID.toString()
+        );
+
+        return jdbcTemplate.query
+        (selectStatement, (rs, rowNum) -> {
+                Snake snake = new Snake();
+                snake.setName(rs.getString(SnakeEnum.NAME.toString()));
+                snake.setDob(rs.getDate(SnakeEnum.DOB.toString()).toLocalDate());
+                snake.setSnakeTypeId(rs.getLong(SnakeEnum.SNAKE_TYPE_ID.toString()));
+                return snake;
+            }
+        );
     }
 
     @Override
