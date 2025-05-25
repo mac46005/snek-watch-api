@@ -13,6 +13,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class SnakeTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> postMethodName(@RequestBody SnakeType entity) {
+    public ResponseEntity<Long> createSnakeTypeEndpoint(@RequestBody SnakeType entity) {
         long newId = snakeTypeRepository.create(entity);
         URI location = URI.create("/snake-types/" + newId);
         return ResponseEntity.created(location).body(newId);
@@ -39,17 +40,17 @@ public class SnakeTypeController {
 
 
     @GetMapping
-    public ResponseEntity<List<SnakeType>> getMethodName() {
+    public ResponseEntity<List<SnakeType>> getSnakeTypeEndpoint() {
         return ResponseEntity.ok(snakeTypeRepository.read());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SnakeType> getMethodName(@PathVariable long id) {
+    public ResponseEntity<SnakeType> getSnakeTypeByIdEndpoint(@PathVariable long id) {
         return ResponseEntity.ok(snakeTypeRepository.read(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> putMethodName(@PathVariable Long id, @RequestBody SnakeType entity) {
+    public ResponseEntity<String> updateSnakeTypeEndpoint(@PathVariable Long id, @RequestBody SnakeType entity) {
         entity.setId(id);
         try {
             snakeTypeRepository.update(entity);
@@ -57,5 +58,20 @@ public class SnakeTypeController {
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSnakeTypeEndpoint(
+        @PathVariable Long id
+    ) {
+        try {
+            SnakeType st = new SnakeType();
+            st.setId(id);
+            snakeTypeRepository.delete(st);
+            return ResponseEntity.noContent().build();
+        } catch(Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        
     }
 }
