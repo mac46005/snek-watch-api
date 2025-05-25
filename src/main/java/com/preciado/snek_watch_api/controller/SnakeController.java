@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,12 @@ public class SnakeController {
     public ResponseEntity<List<Snake>> getAllSnakesEndpoint() {
         return ResponseEntity.ok().body(snakeRepository.read());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Snake> getSnakeById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(snakeRepository.read(id));
+    }
+    
 
     @PostMapping
     public ResponseEntity<Snake> createSnakeEndpoint(@RequestBody Snake entity) {
