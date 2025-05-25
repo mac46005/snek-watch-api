@@ -62,6 +62,11 @@ public class SqlStatementCreator {
         return sb.toString();
     }
 
+    public static String createDeleteStatement(String tableName, String constraint) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DELETE FROM " + tableName + " " + constraint + ";");
+        return sb.toString();
+    }
 
     public static class Set{
         private boolean isString;
