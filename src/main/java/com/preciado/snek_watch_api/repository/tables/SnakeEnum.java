@@ -1,7 +1,7 @@
 package com.preciado.snek_watch_api.repository.tables;
 
 public enum SnakeEnum {
-    ;
+    ID("id");
     private String columnName;
 
     private SnakeEnum(String columnName) {
