@@ -160,9 +160,11 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
             data.getCommonName(),
             data.getTaxonomyName(),
             data.getCareLevel(),
+            data.getOverview(),
             data.getAverageLifeSpanInYrs(),
             data.getAverageAdultLengthInFeet(),
-            data.getDiet()
+            data.getDiet(),
+            data.getId()
         ) > 0;
     }
 

@@ -9,6 +9,7 @@ import com.preciado.snek_watch_api.repository.SnakeTypeRepository;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,9 +49,13 @@ public class SnakeTypeController {
     }
 
     @PutMapping("/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        //TODO: process PUT request
-        
-        return entity;
+    public ResponseEntity<String> putMethodName(@PathVariable Long id, @RequestBody SnakeType entity) {
+        entity.setId(id);
+        try {
+            snakeTypeRepository.update(entity);
+            return ResponseEntity.noContent().build();
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
 }
