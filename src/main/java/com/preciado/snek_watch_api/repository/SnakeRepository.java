@@ -94,8 +94,15 @@ public class SnakeRepository implements ICRUD<Snake> {
 
     @Override
     public boolean update(Snake data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        String updateStatement = SqlStatementCreator.createUpdateStatement(TABLE_NAME, "WHERE id = ?", SnakeEnum.NAME.toString(), SnakeEnum.DOB.toString(),SnakeEnum.SNAKE_TYPE_ID.toString());
+
+        return jdbcTemplate.update(
+            updateStatement,
+            data.getName(),
+            data.getDob(),
+            data.getSnakeTypeId(),
+            data.getId()
+        ) > 0;
     }
 
     @Override

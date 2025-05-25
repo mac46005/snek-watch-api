@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/api/snakes")
@@ -35,7 +37,7 @@ public class SnakeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Snake> getSnakeById(@PathVariable Long id) {
+    public ResponseEntity<Snake> getSnakeByIdEndpoint(@PathVariable long id) {
         return ResponseEntity.ok().body(snakeRepository.read(id));
     }
     
@@ -47,6 +49,13 @@ public class SnakeController {
         URI location = URI.create("/api/snakes/" + id);
 
         return ResponseEntity.created(location).body(entity);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Snake> updateSnakeByIdEndpoint(@PathVariable long id, @RequestBody Snake entity) {
+        entity.setId(id);
+        snakeRepository.update(entity);
+        return ResponseEntity.noContent().build();
     }
 
 }
