@@ -3,13 +3,18 @@ package com.preciado.snek_watch_api.repository;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.preciado.snek_watch_api.model.FeedingLog;
 import com.preciado.snek_watch_api.repository.tables.FeedLogEnum;
 import com.preciado.snek_watch_api.service.SqlStatementCreator;
 
+@Repository
 public class FeedingLogRepository implements ICRUD<FeedingLog> {
-    private final String TABLE_NAME = "feedinglogs";
+
+    
+    private final String TABLE_NAME = "feeding_logs";
+
     private final JdbcTemplate jdbcTemplate;
 
     public FeedingLogRepository(
