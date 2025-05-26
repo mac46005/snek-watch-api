@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.preciado.snek_watch_api.model.FeedingLog;
+import com.preciado.snek_watch_api.repository.tables.FeedLogEnum;
+import com.preciado.snek_watch_api.service.SqlStatementCreator;
 
 public class FeedingLogRepository implements ICRUD<FeedingLog> {
     private final String TABLE_NAME = "feedinglogs";
@@ -24,8 +26,20 @@ public class FeedingLogRepository implements ICRUD<FeedingLog> {
 
     @Override
     public List<FeedingLog> read() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'read'");
+        String selectStatement = SqlStatementCreator.createSelectStatement(TABLE_NAME, "", FeedLogEnum.ID.toString(), FeedLogEnum.SNAKE_ID.toString(),FeedLogEnum.FED_AT.toString(), FeedLogEnum.FOOD_ITEM.toString(), FeedLogEnum.NOTES.toString());
+
+        return jdbcTemplate.query(
+            selectStatement, 
+            (rs, rowNum) -> {
+                FeedingLog feedingLog = new FeedingLog();
+                feedingLog.setId(rs.getLong(FeedLogEnum.ID.toString()));
+                feedingLog.setSnakeId(rs.getLong(FeedLogEnum.SNAKE_ID.toString()));
+                feedingLog.setFedAt(rs.getTimestamp(FeedLogEnum.FED_AT.toString()).toLocalDateTime());
+                feedingLog.setFoodItem(rs.getString(FeedLogEnum.FOOD_ITEM.toString()));
+                feedingLog.setNotes(rs.getString(FeedLogEnum.NOTES.toString()));
+                return feedingLog;
+            }
+        );
     }
 
     @Override
