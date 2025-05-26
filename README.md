@@ -121,13 +121,34 @@ java -jar target/snek-watch-api-1.0.0.jar
 
 - `201 CREATED`
 
-### [POST] api/snakes
+### [GET] api/snakes
 
-**Description**: Create a new user snake in the database and returns the newly generated id with the snake.
+**Description**: Get all user snakes.
 
 **Responses**:
 
 - `201 CREATED`
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Dante",
+        "dob": "2023-04-02",
+        "snakeTypeId": 2
+    },
+    ...
+]
+
+```
+
+### [GET] api/snakes/{id}
+
+**Description**: Get snake by id.
+
+**Responses**:
+
+- `200 OK`
 
 ```json
 {
@@ -137,6 +158,30 @@ java -jar target/snek-watch-api-1.0.0.jar
     "snakeTypeId": 2
 }
 ```
+
+### [POST] api/snakes
+
+**Description**: Saves a new snake in the database.
+
+**Responses**:
+
+- `201 CREATED`
+
+### [PUT] api/snakes/{id}
+
+**Description**: Update snake by id.
+
+**Responses**:
+
+- `204 NO CONTENT`
+
+### [DELETE] api/snakes/{id}
+
+**Description**: Delete snake by id.
+
+**Responses**:
+
+- `204 NO CONTENT`
 
 ## 📄 License
 
