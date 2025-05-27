@@ -11,9 +11,12 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -28,10 +31,6 @@ public class FeedingLogController {
         this.feedingLogRepository = feedingLogRepository;
     }
 
-    @GetMapping
-    public ResponseEntity<List<FeedingLog>> getAllFeedingLogsEndpoint() {
-        return ResponseEntity.ok().body(feedingLogRepository.read());
-    }
 
     @PostMapping
     public ResponseEntity<FeedingLog> createFeedLogEndpoint(@RequestBody FeedingLog entity) {
@@ -40,7 +39,25 @@ public class FeedingLogController {
         URI location = URI.create("/api/feedling-logs/" + id);
         return ResponseEntity.created(location).body(entity);
     }
+
+
+    @GetMapping
+    public ResponseEntity<List<FeedingLog>> getAllFeedingLogsEndpoint() {
+        return ResponseEntity.ok().body(feedingLogRepository.read());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FeedingLog> getSnakeByIdEndpoint(@PathVariable long id) {
+        return ResponseEntity.ok().body(feedingLogRepository.read(id));
+    }
     
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> putMethodName(@PathVariable long id, @RequestBody FeedingLog entity) {
+        entity.setId(id);
+        feedingLogRepository.update(entity);
+
+        return ResponseEntity.noContent().build();
+    }
 
     
 }
