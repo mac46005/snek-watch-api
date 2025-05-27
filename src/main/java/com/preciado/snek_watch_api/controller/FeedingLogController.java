@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,12 +53,19 @@ public class FeedingLogController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Void> putMethodName(@PathVariable long id, @RequestBody FeedingLog entity) {
+    public ResponseEntity<Void> updateFeedLog(@PathVariable long id, @RequestBody FeedingLog entity) {
         entity.setId(id);
         feedingLogRepository.update(entity);
 
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFeedLog(@PathVariable long id) {
+        FeedingLog feedingLog = new FeedingLog();
+        feedingLog.setId(id);
+        feedingLogRepository.delete(feedingLog);
+        return ResponseEntity.noContent().build();
+    }
     
 }

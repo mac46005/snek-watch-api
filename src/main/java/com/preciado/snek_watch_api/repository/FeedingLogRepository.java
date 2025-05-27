@@ -98,7 +98,10 @@ public class FeedingLogRepository implements ICRUD<FeedingLog> {
 
     @Override
     public boolean delete(FeedingLog data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String deleteStatement = SqlStatementCreator.createDeleteStatement(TABLE_NAME, "WHERE id = ?");
+        return jdbcTemplate.update(
+            deleteStatement,
+            data.getId()
+        ) > 0;
     }
 }
