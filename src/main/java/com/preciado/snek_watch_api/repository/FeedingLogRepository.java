@@ -1,8 +1,12 @@
 package com.preciado.snek_watch_api.repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.preciado.snek_watch_api.model.FeedingLog;
@@ -25,8 +29,25 @@ public class FeedingLogRepository implements ICRUD<FeedingLog> {
 
     @Override
     public long create(FeedingLog data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        
+        String insertStatement = SqlStatementCreator.createInsertStatement(TABLE_NAME, FeedLogEnum.SNAKE_ID.toString(), FeedLogEnum.FED_AT.toString(), FeedLogEnum.FOOD_ITEM.toString(), FeedLogEnum.NOTES.toString());
+
+        return jdbcTemplate.update(
+            connection -> {
+                PreparedStatement ps = connection.prepareStatement(insertStatement, Statement.RETURN_GENERATED_KEYS);
+                
+                ps.setLong(1, data.getSnakeId());
+
+                ps.setTimestamp(2, java.sql.Timestamp.valueOf(data.getFedAt()));
+
+                ps.setString(3, data.getFoodItem());
+
+                ps.setString(4, data.getNotes());
+
+                return ps;
+            }
+        );
     }
 
     @Override
