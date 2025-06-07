@@ -9,6 +9,7 @@ public class SnakeType {
     private int averageLifeSpanInYrs;
     private double averageAdultLengthInFeet;
     private String diet;
+    private String image;
 
     public long getId() {
         return id;
@@ -57,6 +58,12 @@ public class SnakeType {
     }
     public void setDiet(String diet) {
         this.diet = diet;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
     }
 
     

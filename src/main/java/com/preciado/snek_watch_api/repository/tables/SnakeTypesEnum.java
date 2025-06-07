@@ -8,7 +8,8 @@ public enum SnakeTypesEnum {
     OVERVIEW("overview"),
     AVERAGE_LIFE_SPAN_IN_YRS("average_life_span_in_yrs"),
     AVERAGE_ADULT_LENGTH_IN_FEET("average_adult_length_in_feet"),
-    DIET("diet");
+    DIET("diet"),
+    IMAGE("image");
 
     private String columnName;
     private SnakeTypesEnum(String columnName) {

@@ -43,7 +43,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
                 SnakeTypesEnum.OVERVIEW.toString(),
                 SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
                 SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
-                SnakeTypesEnum.DIET.toString());
+                SnakeTypesEnum.DIET.toString(),
+                SnakeTypesEnum.IMAGE.toString());
 
         jdbcTemplate.update(
                 connection -> {
@@ -65,6 +66,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
 
                     ps.setString(7, data.getDiet());
 
+                    ps.setString(8, data.getImage());
+
                     return ps;
                 },
                 keyHolder);
@@ -83,7 +86,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
              SnakeTypesEnum.OVERVIEW.toString(),
              SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
              SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
-             SnakeTypesEnum.DIET.toString()
+             SnakeTypesEnum.DIET.toString(),
+             SnakeTypesEnum.IMAGE.toString()
         );
 
         return jdbcTemplate.query(
@@ -99,6 +103,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
                 snakeType.setAverageLifeSpanInYrs(rs.getInt(SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString()));
                 snakeType.setAverageAdultLengthInFeet(rs.getDouble(SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString()));
                 snakeType.setDiet(rs.getString(SnakeTypesEnum.DIET.toString()));
+                snakeType.setImage(rs.getString(SnakeTypesEnum.IMAGE.toString()));
                 return snakeType;
             }
         );
@@ -116,7 +121,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
              SnakeTypesEnum.OVERVIEW.toString(),
              SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
              SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
-             SnakeTypesEnum.DIET.toString()
+             SnakeTypesEnum.DIET.toString(),
+             SnakeTypesEnum.IMAGE.toString()
         );
 
         List<SnakeType> snakeTypes = jdbcTemplate.query(
@@ -131,8 +137,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
                 snakeType.setAverageLifeSpanInYrs(rs.getInt(SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString()));
                 snakeType.setAverageAdultLengthInFeet(rs.getInt(SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString()));
                 snakeType.setDiet(rs.getString(SnakeTypesEnum.DIET.toString()));
-
-
+                snakeType.setImage(rs.getString(SnakeTypesEnum.IMAGE.toString()));
                 return snakeType;
             }
         );
@@ -153,8 +158,8 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
             SnakeTypesEnum.OVERVIEW.toString(),
             SnakeTypesEnum.AVERAGE_LIFE_SPAN_IN_YRS.toString(),
             SnakeTypesEnum.AVERAGE_ADULT_LENGTH_IN_FEET.toString(),
-            SnakeTypesEnum.DIET.toString()
-
+            SnakeTypesEnum.DIET.toString(),
+            SnakeTypesEnum.IMAGE.toString()
         );
         return jdbcTemplate.update(
             updateStatement,
@@ -165,6 +170,7 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
             data.getAverageLifeSpanInYrs(),
             data.getAverageAdultLengthInFeet(),
             data.getDiet(),
+            data.getImage(),
             data.getId()
         ) > 0;
     }
