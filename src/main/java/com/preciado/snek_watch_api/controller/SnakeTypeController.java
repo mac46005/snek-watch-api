@@ -27,7 +27,8 @@ public class SnakeTypeController {
     private SnakeTypeRepository snakeTypeRepository;
 
     public SnakeTypeController(
-            SnakeTypeRepository snakeTypeRepository) {
+            SnakeTypeRepository snakeTypeRepository
+    ) {
         this.snakeTypeRepository = snakeTypeRepository;
     }
 
@@ -74,4 +75,11 @@ public class SnakeTypeController {
         }
         
     }
+
+
+    @GetMapping("/selection")
+    public ResponseEntity<List<SnakeType>> getSelection() {
+        return ResponseEntity.ok().body(snakeTypeRepository.getSelection());
+    }
+    
 }

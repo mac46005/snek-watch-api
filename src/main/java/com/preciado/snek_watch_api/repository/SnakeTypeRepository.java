@@ -181,4 +181,22 @@ public class SnakeTypeRepository implements ICRUD<SnakeType> {
         return jdbcTemplate.update(deleteStatement, data.getId()) > 0;
     }
 
+    public List<SnakeType> getSelection() {
+        String selectStatement = SqlStatementCreator.createSelectStatement(
+            TABLE_NAME,"", 
+            SnakeTypesEnum.ID.toString(), 
+            SnakeTypesEnum.COMMON_NAME.toString(),
+            SnakeTypesEnum.IMAGE.toString()
+        );
+        return jdbcTemplate.query(
+            selectStatement, 
+            (rs, rowNum) -> {
+                SnakeType snakeType = new SnakeType();
+                snakeType.setId(rs.getLong(SnakeTypesEnum.ID.toString()));
+                snakeType.setImage(rs.getString(SnakeTypesEnum.IMAGE.toString()));
+                return snakeType;
+            }
+        );
+    }
+
 }
